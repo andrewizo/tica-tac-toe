@@ -1,0 +1,32 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+table {
+  border-spacing: 0;
+}
+
+table, table td {
+  text-align: center;
+}
+
+table td {
+  width: 75px;
+  height: 75px;
+  margin: 3px;
+  color: #333;
+  font-size: 16pt;
+  font-weight: bolder;
+  border: 1px solid lightgray;
+  cursor: pointer;
+}
+
+.buttons .prev,
+.buttons .next, 
+.buttons .reset{
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+}
