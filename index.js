@@ -18,6 +18,8 @@ function Game(container, status, buttons) {
     winner: null
   }
 
+ 
+  
   function reset() {
     state.history = [Grid()]; // Reset the history to a new grid
     state.step = 0; // Reset the step
@@ -75,41 +77,53 @@ function Game(container, status, buttons) {
   }
 
   function handleClickCell(cell, pos) {
-    const { step, xIsNext, history } = state
-    const current = history[ step ]
-    state.history = history.slice(0, step + 1)
-
-    const noMoreMoves = state.isWon || current.get(pos)
-    if (noMoreMoves) return
-    
+    const { step, xIsNext, history } = state;
+    const current = history[step];
+    state.history = history.slice(0, step + 1);
+  
+    const noMoreMoves = state.isWon || current.get(pos);
+    if (noMoreMoves) return;
+  
     const currentPlayer1 = xIsNext ? 'X' : 'O';
-    const grid = Grid(current.cells)
-    grid.set(pos, cell.innerText = xIsNext ? 'X' : 'O')
-
-    const winner = grid.findWinner()
-
+    const grid = Grid(current.cells);
+    grid.set(pos, currentPlayer1);
+  
+    const winner = grid.findWinner();
+  
     Object.assign(state, {
       xIsNext: !xIsNext,
-      history: state.history.concat([ grid ]),
+      history: state.history.concat([grid]),
       isWon: winner !== null,
       winner,
       isFinished: grid.isOccupied() || !!winner,
-      step: step + 1
-    })
-
-    updateStatus();
-
-    cell.style.backgroundColor = currentPlayer1 === 'X' ? 'rgba(255, 0, 0, 0.4)' : 'rgba(227, 207, 28, 0.5)';
+      step: step + 1,
+    });
+  
+    reload();
   }
+  
 
   function updateStatus() {
-    const { winner, xIsNext, isWon, isFinished } = state
-    const innerText = isWon ? `Player ${winner} won the game!` :
-                      (isFinished ? `Game finished` :
-                      `Next player: ${xIsNext ? 'X' : 'O'}`)
-    status.innerText = innerText
+    const { winner, xIsNext, isWon, isFinished } = state;
+    let innerText;
+    if (isWon) {
+      const winnerColor = winner === 'X' ? 'var(--x-color)' : 'var(--o-color)';
+      innerText = `Player <span class="blink-text" style="color: ${winnerColor}; font-family: 'sabo2', sans-serif;">${winner}</span> won the game!`;
+    } else if (isFinished) {
+      innerText = 'DRAW';
+    } else {
+      // Wrap the "X" and "O" in spans with the x-cell and o-cell classes and add the blink-text class for blinking effect
+      const currentPlayerColor = xIsNext
+        ? `<span class="x-cell blink-text-x" style="--blink-color: var(--x-blink-color); color: var(--x-color); font-family: 'sabo2', sans-serif;">X</span>`
+        : `<span class="o-cell blink-text-o" style="--blink-color: var(--o-blink-color); color: var(--o-color); font-family: 'sabo2', sans-serif;">O</span>`;
+      innerText = `Next player: ${currentPlayerColor}`;
+    }
+  
+    status.innerHTML = innerText;
   }
-
+  
+  
+  
   buttons.prev.addEventListener('click', previous)
   buttons.next.addEventListener('click', next)
   buttons.reset.addEventListener('click', reset);
@@ -119,6 +133,8 @@ function Game(container, status, buttons) {
     reset
   }
 }
+
+
 
 function Grid(cells) {
   const size = { x: 3, y: 3 }
@@ -164,18 +180,55 @@ function Grid(cells) {
     return null
   }
 
+  // Add an event listener to the container element
+// Add an event listener to the container element
+const container = document.getElementById('container');
+container.addEventListener('click', handleGridClick);
+
+// Function to handle grid click
+function handleGridClick() {
+  // Show the buttons
+  const buttons = document.getElementById('buttons');
+  buttons.style.display = 'flex';
+
+  // Remove the event listener on the container, so the buttons won't disappear again
+  container.removeEventListener('click', handleGridClick);
+}
+
+// Function to handle reset button click
+const resetButton = document.getElementById('reset');
+resetButton.addEventListener('click', handleResetClick);
+
+// Function to handle reset button click event
+function handleResetClick() {
+  // Hide the buttons
+  const buttons = document.getElementById('buttons');
+  buttons.style.display = 'none';
+
+  // Add back the event listener on the container, so the buttons will be hidden again when the user clicks on the grid
+  container.addEventListener('click', handleGridClick);
+}
+
+
+
   function render(handleClickCell) {
     const table = document.createElement('table')
+    table.classList.add('grid');
     for (let y = 0; y < size.y; y++) {
       const row = table.insertRow()
       for (let x = 0; x < size.x; x++) {
         const cell = row.insertCell()
-        cell.innerText = get({ x, y })
+        const cellValue = get({ x, y });
+  
+        cell.innerText = cellValue;
+        cell.classList.add(cellValue === 'X' ? 'x-cell' : cellValue === 'O' ? 'o-cell' : 'empty-cell');
+        
         cell.addEventListener('click', () => handleClickCell(cell, { x, y }))
       }
     }
     return table
   }
+  
 
   return {
     cells,

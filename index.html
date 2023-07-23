@@ -1,16 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./style.css">
-  <title>Tic Tac Toe Game</title>
-</head>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="https://i.gifer.com/2P1w.gif">
+<link rel="icon" type="image/png" sizes="32x32" href="https://i.gifer.com/2P1w.gif">
+    <link rel="stylesheet" href="./style.css">
+    <title>TIC TAC TOE</title>
+    
+  </head>
 <body>
   <div id="title">
-    <h1>TIC TAC TOE</h1>
-    </div>
+    <h1>
+      <span class="tic">TIC</span>
+      <span class="tac">TAC</span>
+      <span class="toe">TOE</span>
+    </h1>
+  </div>
+  
   <div id="game">
     <div id="status">
       <!-- Game status goes here -->
@@ -19,11 +27,15 @@
       <!-- All content goes here -->
     </div>
     <br>
-<div class="buttons">
-  <button class="prev" id="prev" style="--clr:#40E0D0">Previous</button>
-  <button class="next" id="next" style="--clr:#40E0D0">Next</button>
-  <button class="reset" id="reset" style="--clr:#40E0D0">Reset</button>
-</div>
+    <div class="buttons" id="buttons" style="display: none;">
+      <div class="prev-next">
+        <button class="prev" id="prev" style="--clr:#40E0D0">Previous</button>
+        <button class="next" id="next" style="--clr:#40E0D0">Next</button>
+      </div>
+      <button class="reset" id="reset" style="--clr:#40E0D0">Reset</button>
+    </div>
+    
+  </div>
   </div>
   <script src="index.js"></script>
 </body>

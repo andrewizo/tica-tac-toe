@@ -9,6 +9,7 @@
 }
 
 
+
 body {
   background-image: url('Resources/background.gif');
   background-repeat: no-repeat;
@@ -25,7 +26,96 @@ body {
 
 }
 
+
 #title {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    margin-left: 200px;
+    margin-right: 200px;
+    box-shadow: 0 0 10px #40E0D0;
+    min-width: 200px;
+    padding: 10px;
+}
+
+/* Customize the colors for each word */
+.tic {
+  font-family: 'sabo2', sans-serif;
+  color: #40E0D0;
+  font-size: 60px;
+  animation: blinkTic 1.5s infinite; /* Apply the blinkTic animation to the .tic element */
+}
+
+.tac {
+  font-family: 'sabo2', sans-serif;
+  color: #e453fa;
+  font-size: 60px;
+  animation: blinkTac 1s infinite; /* Apply the blinkTac animation to the .tac element */
+}
+
+.toe {
+  font-family: 'sabo2', sans-serif;
+  color: #ffe946;
+  font-size: 60px;
+  animation: blinkToe 1.5s infinite; /* Apply the blinkToe animation to the .toe element */
+}
+
+/* Add the blinking text shadow animations for each word */
+@keyframes blinkTic {
+  0% {
+    text-shadow: none;
+  }
+  50% {
+    text-shadow: 0 0 15px #40E0D0; /* Change the shadow color and size as needed */
+  }
+  100% {
+    text-shadow: none;
+  }
+}
+
+@keyframes blinkTac {
+  0% {
+    text-shadow: none;
+  }
+  50% {
+    text-shadow: 0 0 15px #e453fa; /* Change the shadow color and size as needed */
+  }
+  100% {
+    text-shadow: none;
+  }
+}
+
+@keyframes blinkToe {
+  0% {
+    text-shadow: none;
+  }
+  50% {
+    text-shadow: 0 0 15px #ffe946; /* Change the shadow color and size as needed */
+  }
+  150% {
+    text-shadow: none;
+  }
+}
+
+/* Add the styles for the grid lines */
+
+
+
+:root {
+  --next-player-color: #fdfffd;
+  --x-color: #00ffff; 
+  --o-color: #ff00ff;
+  --x-blink-color: #00ffff;
+  --o-blink-color: #ff00ff; 
+
+}
+
+/* Apply the CSS variables to the status element */
+#status {
+  font-family: 'sabo2', sans-serif;
+  font-size: 35px;
   background-color: rgba(0, 0, 0, 0.5);
   border-radius: 5px;
   text-align: center;
@@ -33,16 +123,46 @@ body {
   margin-bottom: 40px;
   margin-left: 200px;
   margin-right: 200px;
-  box-shadow: 0 0 10px #40E0D0;
+  box-shadow: 0 0 10px #f5f4f6;
   min-width: 200px;
   padding: 10px;
+  color: var(--next-player-color); /* Use the CSS variable for the color */
 }
 
-h1 {
-  font-family: 'sabo2', sans-serif;
-  color: #40E0D0;
-  font-size: 60px;
+/* Apply the blinking effect to X and O using the blink-text class */
+.blink-text-x,
+.blink-text-o,
+.blink-text {
+  animation: blink 1s infinite; /* Adjust the duration or other animation properties as needed */
 }
+
+/* Rest of your CSS code */
+/* ... */
+
+
+/* Add the blinking text shadow animation */
+@keyframes blink {
+  0% {
+    text-shadow: none;
+  }
+  50% {
+    text-shadow: 0 0 9px var(--blink-color); /* Use the CSS variable for the blink color */
+  }
+  300% {
+    text-shadow: none;
+  }
+}
+
+/* Apply the blinking text shadow animation to the text inside the status element */
+#status .blink-text-x {
+  animation: blink .5s infinite;
+}
+
+#status .blink-text-o {
+  animation: blink .5s infinite;
+  animation-delay: 0; /* Offset the animation for "O" by 0.5 seconds */
+}
+
 
 #game {
   display: flex;
@@ -53,16 +173,57 @@ h1 {
   gap: 20px;
 
 }
+
+
+
+/* Customize the color for X */
+.x-cell {
+  font-size: 40px;
+  font-family: 'sabo2', sans-serif;
+  color: #70f9f2;
+  animation: blinkXcell 5s infinite; 
+}
+@keyframes blinkXcell {
+  0% {
+    text-shadow: none;
+  }
+  50% {
+    text-shadow: 0 0 20px #a6f8f4; /* Change the shadow color and size as needed */
+  }
+  100% {
+    text-shadow: none;
+  }
+}
+/* Customize the color for O */
+.o-cell {
+  font-size: 40px;
+  font-family: 'sabo2', sans-serif;
+  color: #e453fa;
+  animation: blinkOcell 5s infinite; 
+}
+@keyframes blinkOcell {
+  0% {
+    text-shadow: none;
+  }
+  50% {
+    text-shadow: 0 0 20px #f196fe; /* Change the shadow color and size as needed */
+  }
+  100% {
+    text-shadow: none;
+  }
+}
+
 * {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
 }
 
+
 table {
-  border-spacing: 0;
+  border-spacing: 3px;
   border: 3px solid lightgray;
-  box-shadow: 0 0 30px #40E0D0;
+  box-shadow: 0 0 30px #728482;
   background-color: rgba(0, 0, 0, 0.5);
 }
 
@@ -81,9 +242,20 @@ table td {
   cursor: pointer;
 }
 
-.buttons .prev,
-.buttons .next, 
-.buttons .reset{
+.buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;  
+}
+
+.prev-next {
+  display: flex; /* This creates a flex row for previous and next buttons */
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.buttons .reset {
+  /* Your existing styles for the reset button */
   padding: 10px;
   border: none;
   cursor: pointer;
@@ -91,7 +263,49 @@ table td {
   padding: 10px 30px;
   transition: .5s;
   border-radius: 5px;
+  background-color: #fbfaf9;
+  border-radius: 5px;
+  text-align: center;
+
+  box-shadow: 0 0 10px #ffe946;
+  min-width: 200px;
+  padding: 10px;
 }
+
+.buttons .prev {
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  font-family: 'sabo1', sans-serif;
+  padding: 10px 30px;
+  transition: .5s;
+  border-radius: 5px;
+  margin: 5px;
+  background-color: #fefefe;
+  border-radius: 5px;
+  text-align: center;
+  box-shadow: 0 0 10px #80f2e6;
+  min-width: 200px;
+  padding: 10px;
+}
+
+.buttons .next {
+  padding: 1px;
+  border: none;
+  cursor: pointer;
+  font-family: 'sabo1', sans-serif;
+  padding: 10px 50px;
+  transition: .5s;
+  border-radius: 5px;
+  margin: 5px;
+  background-color: #fafafa;
+  border-radius: 5px;
+  text-align: center;
+  box-shadow: 0 0 10px #e453fa;
+  min-width: 200px;
+  padding: 10px;
+}
+
 
 button:hover {
   background: var(--clr);
