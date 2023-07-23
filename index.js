@@ -31,7 +31,7 @@ function Game(container, status, buttons) {
   function previous() {
     const firstMove = state.step === 0
     if (firstMove) return
-    jumpTo(--state.step)
+    jumpTo(--state.step);
   }
 
   function next() {
@@ -81,7 +81,8 @@ function Game(container, status, buttons) {
 
     const noMoreMoves = state.isWon || current.get(pos)
     if (noMoreMoves) return
-
+    
+    const currentPlayer1 = xIsNext ? 'X' : 'O';
     const grid = Grid(current.cells)
     grid.set(pos, cell.innerText = xIsNext ? 'X' : 'O')
 
@@ -96,7 +97,9 @@ function Game(container, status, buttons) {
       step: step + 1
     })
 
-    updateStatus()
+    updateStatus();
+
+    cell.style.backgroundColor = currentPlayer1 === 'X' ? 'rgba(255, 0, 0, 0.4)' : 'rgba(227, 207, 28, 0.5)';
   }
 
   function updateStatus() {
