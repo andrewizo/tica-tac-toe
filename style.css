@@ -21,8 +21,6 @@ body {
   justify-content: center;
   align-items: center;
   text-align: center;
-
-
 }
 
 #title {
@@ -44,6 +42,34 @@ h1 {
   font-size: 60px;
 }
 
+#status {
+  /* position: relative; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 20px; */
+}
+
+#billboard {
+  /* position: absolute; */
+  top: 50%; 
+  left: 50%; 
+  /* transform: translate(-50%, -50%); */
+  z-index: 1;
+  height: 200px;
+
+}
+
+#billboard-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+
 #game {
   display: flex;
   flex-direction: column;
@@ -51,7 +77,7 @@ h1 {
   align-items: center;
   text-align: center;
   gap: 20px;
-
+  position: relative;
 }
 * {
   margin: 0;
@@ -75,10 +101,11 @@ table td {
   height: 75px;
   margin: 3px;
   color: white;
-  font-size: 16pt;
+  font-size: 25pt;
   font-weight: bolder;
   border: 3px solid lightgray;
   cursor: pointer;
+  font-family: 'sabo2', sans-serif;
 }
 
 .buttons .prev,
